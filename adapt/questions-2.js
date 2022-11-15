@@ -66,7 +66,14 @@
     },
 
   ];
+  let u = 0
+  for (let i = 1; i <= localStorage.length; i++) {
+    if(sessionStorage.getItem('username') == JSON.parse(localStorage.getItem(i)).username) {
+      u = i
+    }
 
+  
+  }
 
  
   // define document elements
@@ -122,17 +129,22 @@
         return;
     }
 
+    let objec = JSON.parse(localStorage.getItem(u))
         if (answer == quizData[currentQuiz].correct){
+score++
 
-            score++;
+
             percentage += 6
+            objec.result = score
+            objec.perc = percentage
+            objec.answers.push(`<span>${answer}</span><span class = "correctAns" >&#10003;</span>`)
+        }else if (answer != quizData[currentQuiz].correct){
+          objec.answers.push(`<span>${answer}</span><span class = "wrongAns" >&#10007;</span>`)
         }
-
-        if(allscore == 0){
-          sessionStorage.setItem('q5' , answer)
-        }else{
-          sessionStorage.setItem(`q${5+allscore}` , answer)
-        }
+      
+        
+        localStorage.setItem(u,JSON.stringify(objec)) 
+      
 
          
 
@@ -162,3 +174,11 @@
 
     LoadQuizDataAndStart();
 
+    function redirect() {
+      if (sessionStorage.length == 0) {
+        document.head.innerHTML = `<meta http-equiv="Refresh" content="0; url='../login/login.html'" />`
+      }
+      if ( sessionStorage.getItem('done') == 'true') {
+        document.head.innerHTML = `<meta http-equiv="Refresh" content="0; url='../result/index.html'" />`
+      }
+    }

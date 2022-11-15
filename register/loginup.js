@@ -1,5 +1,7 @@
 let errors = document.getElementById('errors')
 var exist=document.getElementById('signup');
+let aa = document.getElementById('signup')
+
 
 function repasss() {
     let password = sessionStorage.getItem('password')
@@ -15,7 +17,8 @@ function repasss() {
         email:sessionStorage.getItem('email'),
         username:sessionStorage.getItem('username'),
         password:sessionStorage.getItem('password',),
-       
+        result:0,
+        answers:[]
      }
 
      if (password.length >= 6 && password == repassword){
@@ -28,6 +31,7 @@ function repasss() {
 
     if (password.length < 6) {
         errors.innerHTML = `<p>password is too short</p>`
+        
     }
 
 
@@ -56,7 +60,7 @@ function repasss() {
 
      if (exists == false && pass == true && em==false) {
         localStorage.setItem(`${localStorage.length + 1}` , JSON.stringify(userObject)) 
-        errors.innerHTML = `<p>Account created</p>`
+        aa.setAttribute("href" , "../login/login.html")
         sessionStorage.clear()
      }
 
@@ -64,7 +68,6 @@ function repasss() {
 
 
 }
-
 
 
 

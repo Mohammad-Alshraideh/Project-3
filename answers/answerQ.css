@@ -46,7 +46,14 @@ ul {
     font-weight: bold;
 }
 
-   
+   .correctAns{
+    color: #168371;
+    font-size: larger;
+   }
+   .wrongAns{
+    color: red;
+    font-size: larger;
+   }
 
 
 #navbar{
@@ -141,6 +148,10 @@ ul {
         gap: 20px;
             padding: 7.5% 9%;
         
+    }
+
+    #footer1{
+        height: 60px;
     }
 
     #first-img {

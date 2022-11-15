@@ -32,7 +32,7 @@ const quizData = [
       a: "a. <list>",
       b: "b. <select>",
       c: "c. <input type='dropdown'>",
-      correct: "c",
+      correct: "b",
     },
 
     
@@ -47,6 +47,42 @@ const quizData = [
  ];
 
 
+// let so = [1,2,3,4,5,6,7,8,9]
+// let ans = [
+//   [
+//     {a: 'wrong' , an:'asdad'},
+//     {a: 'wrong' , an:'asdad'},
+//     {a: 'right' , an:'asdad'},
+//   ],
+  
+// ]
+
+
+
+
+
+// ljl.innerHTML =''
+// for (let i = 0; i < so.length; i++) {
+//   h1.innerHTML = `${so[i]}`
+//     for (let j = 0; j < ans[i].length; j++) {
+      
+//       ljl.innerHTML += `<input id="${i} value ="${ans[i][j].a}">
+//       <label for ="${i}">${ans[i][j].an}</label>
+//       `
+      
+//     }
+// }
+
+
+
+let u = 0
+for (let i = 1; i <= localStorage.length; i++) {
+  if(sessionStorage.getItem('username') == JSON.parse(localStorage.getItem(i)).username) {
+    u = i
+  }
+ 
+
+}
 
 
 
@@ -101,16 +137,23 @@ const quizData = [
         alert("You Should Select an Answer First !")
         return;
     }
-
+    let objec = JSON.parse(localStorage.getItem(u))
         if (answer == quizData[currentQuiz].correct){
+score++
 
-            score++;
+
             percentage += 5
+            objec.result = score
+            objec.perc = percentage
+            objec.answers.push(`<span>${answer}</span><span class = "correctAns" >&#10003;</span>`)
+        }else if (answer != quizData[currentQuiz].correct){
+          objec.answers.push(`<span>${answer}</span><span class = "wrongAns" >&#10007;</span>`)
         }
-
-
-
-    sessionStorage.setItem('q'+allscore, answer)
+      
+        
+        localStorage.setItem(u,JSON.stringify(objec)) 
+      
+    
    
                
 
@@ -118,7 +161,7 @@ const quizData = [
         deselectAnswer();
         LoadQuizDataAndStart();
 
-
+         
         allscore++
         sessionStorage.setItem('allscore', allscore)
         sessionStorage.setItem('score', score)
@@ -142,5 +185,12 @@ const quizData = [
 
     LoadQuizDataAndStart();
 
-
+    function redirect() {
+      if (sessionStorage.length == 0) {
+        document.head.innerHTML = `<meta http-equiv="Refresh" content="0; url='../login/login.html'" />`
+      }
+      if ( sessionStorage.getItem('done') == 'true') {
+        document.head.innerHTML = `<meta http-equiv="Refresh" content="0; url='../result/index.html'" />`
+      }
+    }
 
